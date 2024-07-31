@@ -58,7 +58,7 @@ const analyze = async (apiKey, contract) => {
                             ]
                         }, 
                         {
-                            'section': 'Suggestions for Improvements', 
+                            'section': 'Suggestions', 
                             'details': 'Suggestions on how to improve the smart contract in term of security and any other identified weaknesses '
                         }
                     ]
@@ -78,4 +78,18 @@ const analyze = async (apiKey, contract) => {
     console.log('Audit Reporting...')
 
     console.log(auditResults.find((result) => result.section === 'Audit Report').details)
+
+    console.log('\nMetrics Report ')
+
+   auditResults.find((result) => result.section === 'Metrics').details.forEach(metric => {
+        console.log(`${metric.score}/10`)
+   }); ; 
+
+   console.log('\nSuggestions Report')
+
+
+   console.log(auditResults.find((result) => result.section === 'Suggestions').details)
 }
+
+
+module.exports = {analyze}
