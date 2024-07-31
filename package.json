@@ -1,12 +1,24 @@
 {
-  "name": "rugpull-cli",
+  "name": "rugpull",
   "version": "1.0.0",
   "main": "index.js",
+  "type" : "commonjs", 
+   "bin": {
+    "rugpull" : "./index.js"
+   }, 
   "scripts": {
+    "start" : "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cli", 
+    "rugpull",
+    "smart", 
+    "contract", 
+    "audit", 
+    "ia"
+  ],
+  "author": "heyolaniran",
   "license": "ISC",
   "description": "",
   "dependencies": {
