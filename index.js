@@ -1,15 +1,16 @@
 #!/usr/bin/env node 
 
 
-const {Command} = require('commander'); 
+//const {Command} = require('commander'); 
+import inquirer from 'inquirer';
 
-const inquirer = require('inquirer'); 
+import { Command } from 'commander';
 
-const {analyze} = require('./src/ai-prompt')
+import {analyze} from './src/ai-prompt.js' 
 
-const fs = require('fs'); 
+import fs from 'fs'
 
-const path = require('path')
+import path from 'path';
 
 const program = new Command() ; 
 
@@ -20,7 +21,7 @@ program.name('rugpull')
 
 const getApiKey = async () => {
 
-    const { apiKey } = await inquirer.createPromptModule({
+    const { apiKey } =  inquirer.prompt({
         type: 'input',
         name: 'apiKey', 
         message: 'Enter your API Key', 
@@ -38,7 +39,6 @@ program.command('check <file>').description('Analyse a smart contract')
 
         const contractPath =  path.resolve(process.cwd() , file); 
 
-        console.log('checking contract at path : ', contractPath) ; 
 
         if(!fs.existsSync(contractPath)) {
             console.error('File not found'); 
@@ -52,6 +52,8 @@ program.command('check <file>').description('Analyse a smart contract')
         }
 
         const contract = fs.readFileSync(contractPath, 'utf-8') ; 
+
+        await analyze(apiKey, contract)
 
     } catch (error) {
         

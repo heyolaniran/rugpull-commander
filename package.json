@@ -2,7 +2,7 @@
   "name": "rugpull",
   "version": "1.0.0",
   "main": "index.js",
-  "type" : "commonjs", 
+  "type": "module",
    "bin": {
     "rugpull" : "./index.js"
    }, 

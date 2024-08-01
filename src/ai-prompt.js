@@ -1,5 +1,5 @@
 
-const OpenAI = require('openai'); 
+import OpenAI from "openai";
 
 const analyze = async (apiKey, contract) => {
 
@@ -92,4 +92,4 @@ const analyze = async (apiKey, contract) => {
 }
 
 
-module.exports = {analyze}
+export {analyze}
