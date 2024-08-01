@@ -19,14 +19,14 @@ program.name('rugpull')
 .version('1.0.0')
 
 
-const getApiKey = async () => {
+async function getApiKey() {
 
-    const { apiKey } =  inquirer.prompt({
+    const { apiKey } = await inquirer.prompt([{
         type: 'input',
         name: 'apiKey', 
         message: 'Enter your API Key', 
         validate: (input) => input.length > 0 || ' API KEY IS REQUIRED'
-    }); 
+    }]); 
 
     return apiKey ; 
 }
@@ -35,29 +35,29 @@ const getApiKey = async () => {
 program.command('check <file>').description('Analyse a smart contract')
 .action(async (file) => {
     try {
-        const apiKey =  await getApiKey() ; 
-
-        const contractPath =  path.resolve(process.cwd() , file); 
 
 
-        if(!fs.existsSync(contractPath)) {
-            console.error('File not found'); 
-            process.exit(1)
+        const apiKey = await getApiKey();
+
+        const contractPath = path.resolve(process.cwd(), file);
+        console.log(`Checking file at path: ${contractPath}`);
+  
+        if (!fs.existsSync(contractPath)) {
+          console.error(`File not found: ${contractPath}`);
+          process.exit(1);
         }
-
-        if(fs.statSync(contractPath).isDirectory()) {
-
-            console.error('This is a directory')
-            process.exit(1) ;
+  
+        if (fs.statSync(contractPath).isDirectory()) {
+          console.error(`Path is a directory, not a file: ${contractPath}`);
+          process.exit(1);
         }
-
-        const contract = fs.readFileSync(contractPath, 'utf-8') ; 
-
-        await analyze(apiKey, contract)
+  
+        const contract = fs.readFileSync(contractPath, "utf8");
+        await analyze(contract, apiKey);
 
     } catch (error) {
         
-        console.error(`Error : ${error.message}`)
+        console.error(`Error try : ${error}`)
     }
 })
 

@@ -70,7 +70,7 @@ const analyze = async (apiKey, contract) => {
     }
 
 
-    const chatCompletion = await openai.chat.chatCompletion.create(params); 
+    const chatCompletion = await openai.chat.completions.create(params); 
 
 
     const auditResults = JSON.parse(chatCompletion.choices[0].message.content)
